@@ -1,0 +1,37 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+option csharp_namespace = "GrpcExample.BookServices";
+package BookService;
+
+message AddBookRequest{
+	string Title=1;
+	string AuthorName=2;
+	google.protobuf.Timestamp CreateAt=3;
+}
+
+message AddBookResponse{
+	int32 BookId=1;
+}
+
+message RemoveBookRequest{
+	int32 Id=1;
+}
+message RemoveBookResponse{
+}
+
+message GetAllBooksRequest{
+
+}
+
+message BookResponse{
+	int32 Id=1;
+	string Title=2;
+	string AuthorName=3;
+	google.protobuf.Timestamp CreateAt=4;
+}
+
+service BookService{
+	rpc AddBook(AddBookRequest) returns (AddBookResponse);
+	rpc RemoveBook(RemoveBookRequest) returns(RemoveBookResponse);
+	rpc GetAllBooks(GetAllBooksRequest) returns(stream BookResponse);
+}
